@@ -25,14 +25,16 @@ int main()
     using namespace std;
     cout << "TEST" << endl;
 
-    auto point_world       = point3<cs::world>{{1, 1, 1, 1}};
-    auto point_camera      = point3<cs::camera>{{1, 1, 1, 0}};
+    auto point_world  = point3<cs::world>{{1, 1, 1, 1}};
+    auto point_camera = point3<cs::camera>{{1, 1, 1, 0}};
 
-    auto plane_world       = plane3<cs::world>();
-    auto plane_camera      = plane3<cs::camera>();
+    auto plane_world  = plane3<cs::world>();
+    auto plane_camera = plane3<cs::camera>();
 
-    auto camera_from_world = homography3<cs::camera, cs::world>();
-    auto world_from_camera = homography3<cs::world, cs::camera>();
+    auto camera_from_world  = homography3<cs::camera, cs::world>();
+    auto world_from_camera  = homography3<cs::world,  cs::camera>();
+    auto world_from_world   = homography3<cs::world,  cs::world>();
+    auto camera_from_camera = homography3<cs::camera, cs::camera>();
 
     world_from_camera = inverse(camera_from_world);
     camera_from_world = inverse(world_from_camera);
@@ -42,4 +44,7 @@ int main()
 
     plane_camera = plane_world * world_from_camera;
     plane_world = plane_camera * camera_from_world;
+
+    world_from_world = world_from_camera * camera_from_world;
+    camera_from_camera = camera_from_world * world_from_camera;
 }

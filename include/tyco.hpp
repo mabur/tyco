@@ -49,5 +49,14 @@ row_vector<T, CsRightIn> operator*(
     return {p.raw_ * M.raw_};
 }
 
+// M1 * M2
+template<typename T, typename CsLeft, typename CsMiddle, typename CsRight>
+const homography<T, CsLeft, CsRight> operator*(
+    const homography<T, CsLeft, CsMiddle>& M1,
+    const homography<T, CsMiddle, CsRight>& M2)
+{
+    return {M1.raw_ * M2.raw_};
+}
+
 } // namespace P3
 } // namespace tyco
